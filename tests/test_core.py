@@ -27,4 +27,3 @@ def test_hexagon_centers_in_image():
         assert len(centers) > 0
         for cx, cy in centers:
             assert 0 <= cx < 100 and 0 <= cy < 50
-

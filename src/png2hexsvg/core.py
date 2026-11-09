@@ -1,6 +1,7 @@
 # file with every needed function
 from PIL import Image
 
+
 # Image functions
 def load_image(path):
     """
