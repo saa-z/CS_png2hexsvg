@@ -1,7 +1,8 @@
 # test file checking every core function's behavior
 
-import pytest
 import math
+
+import pytest
 from PIL import Image
 
 import png2hexsvg

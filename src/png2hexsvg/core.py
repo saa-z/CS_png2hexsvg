@@ -1,4 +1,6 @@
 # file with every needed function
+import math
+
 from PIL import Image
 
 
@@ -43,3 +45,17 @@ def hexagon_center(img, size):
                 hexagon_centers.append([int(cx), int(cy)])
     return hexagon_centers
 
+def hexagon_corners(center, size):
+    """Compute the 6 corners of a flat-top hexagon.
+
+    :param center: coordinates [cx, cy] of the hexagon center
+    :param size: hexagon size in pixels (distance from center to corner)
+    :return: list of the 6 corners (x, y)
+    """
+    corners = []
+    for i in range(6):
+        angle = math.radians(60 * i)
+        x = center[0] + size * math.cos(angle)
+        y = center[1] + size * math.sin(angle)
+        corners.append((x, y))
+    return corners
