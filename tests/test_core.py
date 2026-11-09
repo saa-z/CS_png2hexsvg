@@ -1,4 +1,7 @@
 # test file checking every core function's behavior
+
+import math
+
 import pytest
 from PIL import Image
 
@@ -18,3 +21,44 @@ def test_png2hexsvg_load_formats(tmp_path, extension, accepted):
     else:
         with pytest.raises(ValueError):
             png2hexsvg.load_image(path)
+
+def test_hexagon_centers_in_image():
+    img = Image.new("RGB", (100, 50))
+    size_small = [1,10,20]
+    size_big = [50,100]
+    for i in size_small:
+        centers = png2hexsvg.hexagon_center(img, i)
+        assert len(centers) > 0
+        for cx, cy in centers:
+            assert 0 <= cx < 100 and 0 <= cy < 50
+    for i in size_big:
+        with pytest.raises(ValueError):
+            png2hexsvg.hexagon_center(img,i)
+
+def test_hexagon_has_six_corners():
+    corners = png2hexsvg.hexagon_corners([50, 50], 10)
+    assert len(corners) == 6
+
+def test_corners_are_at_distance_size():
+    size = 10
+    corners = png2hexsvg.hexagon_corners([50, 50],size)
+    for x, y in corners:
+        assert round(math.dist((x, y), (50, 50)),2)== size
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
