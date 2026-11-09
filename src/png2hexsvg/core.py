@@ -18,6 +18,8 @@ def load_image(path):
     return img
 
 #Hexagonal Grid
+
+#V1 no check on the compatability between image size and hexagonal size
 def hexagon_center(img, size):
     """Compute the centers of flat-top hexagons covering the picture.
 
@@ -26,16 +28,18 @@ def hexagon_center(img, size):
     :return: list of hexagon centers [cx, cy]
     """
     w, h = img.size
+    w, h = img.size
     dx, dy = 1.5 * size, (3**0.5) * size
     nb_cols = int(w / dx)
     nb_rows = int(h / dy)
-
+    if nb_cols ==0 or nb_rows ==0:
+        raise ValueError(f"Hexagon size {size} too big for a {w}x{h} picture")
     hexagon_centers = []
     for row in range(nb_rows):
         for col in range(nb_cols):
             cx, cy = col * dx, row * dy
             if col % 2 == 1:
                 cy += dy / 2  # odd columns shifted down
-            hexagon_centers.append([int(cx), int(cy)])
+                hexagon_centers.append([int(cx), int(cy)])
     return hexagon_centers
 

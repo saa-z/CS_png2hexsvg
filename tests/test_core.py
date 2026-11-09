@@ -1,4 +1,5 @@
 # test file checking every core function's behavior
+
 import pytest
 from PIL import Image
 
@@ -21,9 +22,13 @@ def test_png2hexsvg_load_formats(tmp_path, extension, accepted):
 
 def test_hexagon_centers_in_image():
     img = Image.new("RGB", (100, 50))
-    size = [10,20,50]
-    for i in size:
+    size_small = [1,10,20]
+    size_big = [50,100]
+    for i in size_small:
         centers = png2hexsvg.hexagon_center(img, i)
         assert len(centers) > 0
         for cx, cy in centers:
             assert 0 <= cx < 100 and 0 <= cy < 50
+    for i in size_big:
+        with pytest.raises(ValueError):
+            png2hexsvg.hexagon_center(img,i)
